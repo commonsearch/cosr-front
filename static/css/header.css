@@ -1,0 +1,140 @@
+
+/* <header> wrapping tag */
+#h {
+  padding:10px;
+  display:block;
+  border-bottom:1px solid #E0E0E0;
+  margin:0;
+  background-color:#F7F7F7;
+  height:auto;
+}
+
+.full #h {
+  padding:0;
+  text-align:center;
+  border:0;
+  height:100vh;
+}
+
+/* "About" link to https://about.commonsearch.org */
+.about a {
+  float:right;
+  line-height:36px;
+  color:#666;
+  font-size:13px;
+  margin-right:10px;
+}
+
+#logo {
+  background:url(/img/logo-400.png) no-repeat;
+  background-size:92px 30px;
+  height:30px;
+  width:92px;
+  color:transparent;
+  float:left;
+  vertical-align:top;
+  margin-top:3px;
+  margin-right:3px;
+}
+
+
+/* <form> wraps both the logo and the input zone */
+#f {
+  display:inline-block;
+}
+
+/* Position the search form in the middle of the full-size homepage */
+body.full #h #f {
+  padding: 200px 20px 20px 20px;
+}
+
+
+/* Wrapper around the input element & submit button, to simulate a border */
+#w {
+  border:1px solid #E0E0E0;
+  background:#FFF;
+  margin-left:5px;
+  margin-left:100px;
+  position:relative;
+  height:34px;
+  padding-right:80px;
+}
+
+/* Applies to both the search input and the submit button */
+#f input {
+  outline: none;
+  border: 0;
+  font-size:18px;
+
+  /* Needed to remove styling on iOS */
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+/* Actual input field */
+#q {
+  padding:7px 0px 6px 7px;
+  height:21px;
+  width:100%;
+}
+
+/* Submit button */
+#s {
+  cursor:pointer;
+  background:#FFF;
+  width:34px;
+  height:34px;
+  text-align:center;
+  position:absolute;
+  top:0px;
+  right:0px;
+  padding:0;
+
+}
+
+#s:hover, #s:focus {
+  background:#F0F0F0;
+  color:white;
+}
+
+/* Language dropdown */
+#g select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border:none;
+    color:#999;
+    background:transparent;
+    position:absolute;
+    width:34px;
+    height:34px;
+    z-index:1;
+    top:0px;
+    right:34px;
+    padding-left:5px;
+    cursor:pointer;
+}
+
+/* We need this hack for Firefox which seems to add an additional padding to the select */
+@-moz-document url-prefix() {
+  #g select {
+    padding-left:0px;
+  }
+}
+
+/* Add a fake downward arrow to the language dropdown */
+#g::after {
+  font-size:10px;
+  color:#999;
+  content:"  ▾";
+  position:absolute;
+  right:38px;
+  top:11px;
+  z-index:0;
+}
+
+/* TODO: IE11?
+#g::-ms-expand {
+    display: none;
+}
+*/

@@ -1,0 +1,17 @@
+{
+
+  "a": "https://www.amazon.com/s/?field-keywords={{{s}}}",
+
+  "g": "https://encrypted.google.com/search?hl=en&q={{{s}}}",
+  "gi": "https://encrypted.google.com/search?tbm=isch&q={{{s}}}&tbs=imgo:1",
+  "gm": "https://www.google.com/maps?hl=en&q={{{s}}}",
+
+  "b": "https://www.bing.com/search?q={{{s}}}",
+  "bi": "https://www.bing.com/images/search?q={{{s}}}",
+  "bm": "https://www.bing.com/maps/?q={{{s}}}",
+
+  "ya": "https://yandex.ru/search/?text={{{s}}}",
+
+  "w": "https://en.wikipedia.org/wiki/Special:Search?search={{{s}}}"
+
+}

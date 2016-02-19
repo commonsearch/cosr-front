@@ -1,0 +1,32 @@
+{
+	"ImportPath": "github.com/commonsearch/cosr-front",
+	"GoVersion": "go1.6",
+	"Packages": [
+		"./server"
+	],
+	"Deps": [
+		{
+			"ImportPath": "github.com/NYTimes/gziphandler",
+			"Rev": "92482fb7a26ca58a1c1b78662e6c2b123e988bb9"
+		},
+		{
+			"ImportPath": "github.com/julienschmidt/httprouter",
+			"Comment": "v1.1-12-gf30ab90",
+			"Rev": "f30ab90cccbd5171771d26b6557d3c2f49e047a6"
+		},
+		{
+			"ImportPath": "github.com/justinas/alice",
+			"Rev": "82db91fe6d1db4c070fed544cb5d0b5cc08fe276"
+		},
+		{
+			"ImportPath": "github.com/kelseyhightower/envconfig",
+			"Comment": "v1.0.0-26-g12c18e8",
+			"Rev": "12c18e8343f6eb5fc3a9d5c8dc353e42e6bb40b9"
+		},
+		{
+			"ImportPath": "gopkg.in/olivere/elastic.v3",
+			"Comment": "v3.0.21",
+			"Rev": "6d1954a560f885207ff84c32ed0aaaebf11ec599"
+		}
+	]
+}

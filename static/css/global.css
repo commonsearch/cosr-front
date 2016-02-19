@@ -1,0 +1,37 @@
+
+body, html {
+  font-family:Arial, sans-serif; /* "Lucida Sans Unicode", "Lucida Grande", sans-serif; */
+  background:#FFF;
+  margin:0;
+  padding:0;
+  position:relative;
+}
+
+a {
+  text-decoration:none;
+}
+
+a:hover {
+  text-decoration:underline;
+}
+
+/* Misc. elements */
+
+body #demowarning {
+  font-size:13px;
+  float:right;
+  width:200px;
+  text-align:center;
+  padding:10px;
+  margin:10px;
+  border:1px solid #D99;
+  background-color:#FEE;
+}
+
+body.full #demowarning {
+  position: absolute;
+  left:50%;
+  top: 300px;
+  width:300px;
+  margin-left:-150px;
+}

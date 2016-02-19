@@ -1,0 +1,38 @@
+
+@media (min-width: 751px) {
+  #hits {
+    max-width:550px;
+    padding-left:106px;
+  }
+
+  #w {
+    width:453px;
+  }
+
+  body.full #w {
+    width:400px;
+  }
+
+}
+
+
+@media (max-width: 750px) {
+  #h .about {
+    position:absolute;
+    bottom:10px;
+    right:10px;
+  }
+
+  #dbg {
+    display:none;
+  }
+
+  body.full #h #f {
+    padding-top:100px;
+  }
+
+  body.full #demowarning {
+    top:200px;
+  }
+
+}

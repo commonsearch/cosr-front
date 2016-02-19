@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <title>{{if eq .Search.Query ""}}
+      Common Search
+    {{else}}
+      {{ .Search.Query | html }} | Common Search
+    {{end}}</title>
+    <meta content="/apple-touch-icon-precomposed.png" itemprop="image">
+    <link href="/favicon.ico" rel="shortcut icon">
+
+    <!-- CSS: This will be replaced in templates.go:preprocessTemplate() by the inline, compiled CSS
+              if the file build/static/css/index.css exists -->
+    <link rel="stylesheet" href="/css/global.css"/>
+    <link rel="stylesheet" href="/css/header.css"/>
+    <link rel="stylesheet" href="/css/footer.css"/>
+    <link rel="stylesheet" href="/css/hits.css"/>
+    <link rel="stylesheet" href="/css/responsive.css"/>
+    <!-- ENDCSS -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  </head>
+
+  <body {{if eq .Type "home"}} class="full"{{else}}{{end}}>
+
+    <header id="h">
+
+      <div class="about">
+        <a href="https://about.commonsearch.org/">About</a>
+      </div>
+
+      <form id="f" action="/" method="GET" data-init="{{ .Search | toJSON | html }}">
+        <a href="/" id="logo">Common Search</a>
+        <div id="w">
+
+          <div id="qw">
+            <input id="q" name="q" type="text" size="60" value="{{ .Search.Query | html }}" {{if eq .Search.Query ""}}autofocus{{end}} />
+          </div>
+
+          <span id="g">
+            <select name="g">
+              <option {{ if eq .Search.Lang "ar" }}selected{{end}} value="ar">AR</option>
+              <option {{ if eq .Search.Lang "de" }}selected{{end}} value="de">DE</option>
+              <option {{ if eq .Search.Lang "en" "" }}selected{{end}} value="en">EN</option>
+              <option {{ if eq .Search.Lang "es" }}selected{{end}} value="es">ES</option>
+              <option {{ if eq .Search.Lang "fr" }}selected{{end}} value="fr">FR</option>
+              <option {{ if eq .Search.Lang "it" }}selected{{end}} value="it">IT</option>
+              <option {{ if eq .Search.Lang "ja" }}selected{{end}} value="ja">JA</option>
+              <option {{ if eq .Search.Lang "ko" }}selected{{end}} value="ko">KO</option>
+              <option {{ if eq .Search.Lang "nl" }}selected{{end}} value="nl">NL</option>
+              <option {{ if eq .Search.Lang "pl" }}selected{{end}} value="pl">PL</option>
+              <option {{ if eq .Search.Lang "pt" }}selected{{end}} value="pt">PT</option>
+              <option {{ if eq .Search.Lang "ru" }}selected{{end}} value="ru">RU</option>
+              <option {{ if eq .Search.Lang "vi" }}selected{{end}} value="vi">VI</option>
+              <option {{ if eq .Search.Lang "zh" }}selected{{end}} value="zh">ZH</option>
+              <option {{ if eq .Search.Lang "all" }}selected{{end}} value="all">ALL</option>
+            </select>
+          </span>
+
+          <input id="s" type="submit" value="&#x1f50d;" />
+        </div>
+
+      </form>
+
+    </header>
+
+    {{if getConfig.IsDemo}}
+      <div id="demowarning">
+        Welcome! This is a <b>demo</b> of the <a href="https://about.commonsearch.org">Common Search</a> interface.<br/><br/>
+        The search results are NOT complete/relevant. For this demo they are restricted to <b>some homepages</b> from the Web.<br/><br/>
+        Can you help us improve this interface? We are <a href="https://about.commonsearch.org/contributing">looking for contributors</a>!
+        <br/><br/>
+        <button onclick="document.getElementById('demowarning').style.display='none';">OK, I understand this is a demo.</button>
+      </div>
+    {{end}}
+
+    <div id="hits">
+      {{range $index, $element := .Result.Hits}}
+        <div class="r">
+          <h3><a href="{{ .URL | html }}">{{ .Title | html }}</a></h3>
+          <div class="u"><a href="{{ .URL | html }}">{{ .URL | simplifyURL | html }}</a></div>
+          <div class='b'>{{ .Summary | html }}</div>
+        </div>
+      {{else}}
+        {{if ne .Type "home"}}
+          <div class='z'>We didn't find any results for this search, sorry!</div>
+        {{end}}
+      {{end}}
+    </div>
+
+    <div id="dbg">
+      {{if ne .Type "home"}}
+        Text: <span>{{.Result.Timing.TextQuery }} / {{.Result.Timing.TextRequest }}us</span><br/>
+        Docs: <span>{{.Result.Timing.DocsQuery }} / {{.Result.Timing.DocsRequest }}us</span><br/>
+        Total: <span>{{.Result.Timing.Total}}us</span>
+      {{end}}
+    </div>
+
+    <div id="pager" data-page="{{.Search.Page}}">
+      {{if gt .Search.Page 1}}
+        <a href="{{ .Search.PreviousPageHref }}">&laquo; Previous</a>
+      {{end}}
+      {{if .Result.HasMore}}
+        <a href="{{ .Search.NextPageHref }}">Next &raquo;</a>
+      {{end}}
+    </div>
+
+    <script src="/js/index.js" type="text/javascript"></script>
+
+  </body>
+
+</html>
