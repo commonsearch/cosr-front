@@ -37,17 +37,17 @@ func ElasticsearchConnectServer(url string) *elastic.Client {
 	// elastic.SetTraceLog(log.New(os.Stderr, "ELASTIC: ", log.LstdFlags)),
 	// elastic.SetInfoLog(log.New(os.Stdout, "", log.LstdFlags))
 
-	// We must do this to allow having an unconnected client instance,
-	// and throw proper errors instead of panicking at startup.
-	client.Stop()
-	elastic.SetHealthcheck(true)(client)
-	elastic.SetSniff(true)(client)
-	client.Start()
-
 	if err != nil {
 		// Don't panic, this might be a temporary failure.
 		log.Println("Connection to Elasticsearch failed:", err)
 	}
+
+	// We must do this to allow having an unconnected client instance,
+	// and throw proper errors instead of panicking at startup.
+	client.Stop()
+	err = elastic.SetHealthcheck(true)(client)
+	err = elastic.SetSniff(true)(client)
+	client.Start()
 
 	return client
 

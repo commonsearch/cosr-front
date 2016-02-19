@@ -26,8 +26,8 @@ var Templates = make(map[string]*template.Template)
 // preprocessTemplate does basic HTML minification before compiling templates.
 func preprocessTemplate(s string) string {
 
-	// We are not in local mode, inline the CSS!
-	if Config.Env != "local" {
+	// We are in production mode, inline the CSS!
+	if Config.Env == "prod" {
 
 		css, err := ioutil.ReadFile(path.Join(Config.PathFront, "build/static/css/index.css"))
 
