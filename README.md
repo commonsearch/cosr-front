@@ -1,6 +1,6 @@
 # cosr-front
 
-This repository contains the frontend for [Common Search](https://about.commonsearch.org/). A demo is currently hosted on [https://uidemo.commonsearch.org/](https://uidemo.commonsearch.org/)
+This repository contains the frontend for [Common Search](https://about.commonsearch.org/). A demo is currently hosted on [https://uidemo.commonsearch.org/](uidemo.commonsearch.org)
 
 The frontend has 2 main components:
  - A Go server that receives user requests (as HTTP GETs for page loads or AJAX calls), sends them to an ElasticSearch index, and then returns formatted results in HTML or JSON format.
@@ -30,4 +30,4 @@ To run everything:
 make test
 ```
 
-Check out the [Makefile](https://github.com/commonsearch/cosr-front)
+Check out the [Makefile](https://github.com/commonsearch/cosr-front) for additional test, lint & build commands!

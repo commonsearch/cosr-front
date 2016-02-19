@@ -1,0 +1,15 @@
+language: go
+
+env:
+  - GO15VENDOREXPERIMENT=1
+  - COSR_ENV=ci
+
+go:
+  - "1.5"
+
+install:
+  - make golint_deps
+
+script:
+  - make golint
+  - make gotest
