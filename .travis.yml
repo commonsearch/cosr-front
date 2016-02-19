@@ -7,8 +7,9 @@ go:
   - "1.5"
 
 install:
-  - make golint_deps
+  - go get github.com/tools/godep
   - godep restore
+  - make golint_deps
 
 script:
   - make golint
