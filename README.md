@@ -2,11 +2,19 @@
 
 This repository contains the frontend for [Common Search](https://about.commonsearch.org/). A demo is currently hosted on [uidemo.commonsearch.org](https://uidemo.commonsearch.org/)
 
-The frontend has 2 main components:
- - A Go server that receives user requests (as HTTP GETs for page loads or AJAX calls), sends them to an ElasticSearch index, and then returns formatted results in HTML or JSON format.
- - An optional JavaScript/CSS layer that provides a fast, single-page progressive enhancement to the otherwise static result pages.
+Help is welcome! We have a complete guide on [how to contribute](CONTRIBUTING.md).
 
-Help is welcome! You can use the [Issues page](https://github.com/commonsearch/cosr-front) to suggest improvements, report bugs, or send us Pull Requests!
+
+## Understand the project
+
+The frontend has 2 main components:
+
+ - A [Go server](https://github.com/commonsearch/cosr-front/tree/master/server) that receives user queries (as HTTP GETs for page loads or AJAX calls), sends them to an Elasticsearch index, and then returns results as HTML or JSON.
+ - An optional [JavaScript/CSS layer](https://github.com/commonsearch/cosr-front/tree/master/static) that provides a fast, single-page search experience to the otherwise static result pages.
+
+Here is how they fit in our [general architecture](https://about.commonsearch.org/developer/architecture):
+
+![General technical architecture of Common Search](https://about.commonsearch.org/images/developer/architecture-2016-02.svg)
 
 ## Local install
 
