@@ -6,6 +6,7 @@ import (
 	"github.com/justinas/alice"
 	"net/http"
 	"path"
+	"strings"
 )
 
 // CreateRouter creates a new router with all HTTP handlers and middlewares.
@@ -15,7 +16,10 @@ func CreateRouter() http.Handler {
 	router := httprouter.New()
 
 	// Middlewares shared by all dynamic pages
-	commonMiddleware := alice.New(gziphandler.GzipHandler)
+	commonMiddleware := alice.New(
+		gziphandler.GzipHandler,
+		RedirectWWW,
+	)
 
 	// Main HTML search route
 	router.Handler("GET", "/", commonMiddleware.ThenFunc(SearchHandler))
@@ -56,4 +60,17 @@ func ServeStaticDirectory(r *httprouter.Router, directory string, gzip bool) {
 
 	r.GET("/"+directory+"/*filepath", handler)
 
+}
+
+// RedirectWWW is a midddleware that sends a redirect to the client based on the host
+func RedirectWWW(handler http.Handler) http.Handler {
+	middleware := func(w http.ResponseWriter, r *http.Request) {
+		host := strings.Split(r.Host, ":")[0]
+		if host == "www.commonsearch.org" || host == "commonsearch.org" {
+			http.Redirect(w, r, "https://about.commonsearch.org/", http.StatusFound)
+		} else {
+			handler.ServeHTTP(w, r)
+		}
+	}
+	return http.HandlerFunc(middleware)
 }
