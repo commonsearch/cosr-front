@@ -105,7 +105,9 @@ func (req SearchRequest) BuildTextRequest() (string, error) {
 
 	scoringFunctions = append(scoringFunctions, `{
 	  	"field_value_factor": {
-	      "field": "rank"
+	      "field": "rank",
+	      "factor": 1,
+	      "missing": 0
 	    }
 	}`)
 
@@ -113,7 +115,7 @@ func (req SearchRequest) BuildTextRequest() (string, error) {
 		scoringFunctions = append(scoringFunctions, fmt.Sprintf(`{
 		  	"field_value_factor": {
                 "field": "lang_%s",
-                "missing": 0.1
+                "missing": 0.002
             }
 		}`, req.Lang))
 	}
@@ -125,8 +127,12 @@ func (req SearchRequest) BuildTextRequest() (string, error) {
           "query": {
             "multi_match": {
               "query": %s,
-              "fields": ["title", "body", "url_words", "domain_words^2"]
+              "minimum_should_match": "75%%",
+              "type": "cross_fields",
+	          "tie_breaker": 0.5,
+	          "fields": ["title^3", "body", "url_words^2", "domain_words^8"]
             }
+
           },
           "functions": [%s]
         }
@@ -189,6 +195,8 @@ func (req SearchRequest) PerformSearch() (*SearchResult, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	// fmt.Println(textEsBody)
 
 	textSearchResult, textRequestTime, err := ElasticsearchRequest(
 		ElasticsearchTextClient,
