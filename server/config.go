@@ -24,8 +24,8 @@ type ConfigSpec struct {
 	// Port sets the port we are listening on for requests.
 	Port string `envconfig:"PORT" default:"9700"`
 
-	// Host sets the IP address we are listening on for requests. Set to 0.0.0.0 to open to all.
-	Host string `default:"127.0.0.1"`
+	// Host sets the IP address we are listening on for requests. Set to 127.0.0.1 to restrict to local.
+	Host string `default:"0.0.0.0"`
 
 	// ElasticsearchDocs is the HTTP url of the Elasticsearch instance for the document store.
 	ElasticsearchDocs string `default:"http://192.168.99.100:39200"`

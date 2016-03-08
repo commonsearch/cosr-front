@@ -1,3 +1,5 @@
+PWD := $(shell pwd)
+
 #
 # Day-to-day usage commands
 #
@@ -14,6 +16,22 @@ runserver: gobuild
 godep_save:
 	GO15VENDOREXPERIMENT=1 godep save -v ./server
 
+# Logins into the container
+docker_shell:
+	docker run --rm -v "$(PWD):/go/src/github.com/commonsearch/cosr-front:rw" -w /go/src/github.com/commonsearch/cosr-front -p 9700:9700 -i -t commonsearch/local-front bash
+
+# Run server for local development in a container
+docker_devserver:
+	docker run --rm -v "$(PWD):/go/src/github.com/commonsearch/cosr-front:rw" -w /go/src/github.com/commonsearch/cosr-front -p 9700:9700 -i -t commonsearch/local-front make devserver
+
+# Starts the local services needed by cosr-front
+start_services:
+	docker run -d -p 39200:9200 -p 39300:9300 commonsearch/local-elasticsearch
+
+# Stops local services
+stop_services:
+	bash -c 'docker ps | tail -n +2 | grep -E "((commonsearch/local-elasticsearch))" | cut -d " " -f 1 | xargs docker stop -t=0'
+
 
 #
 # Tests & linting
@@ -25,6 +43,10 @@ lint: minify_js golint
 
 # Lint and test everything
 test: lint gotest
+
+# Lint and test everything inside Docker
+docker_test:
+	docker run --rm -v "$(PWD):/go/src/github.com/commonsearch/cosr-front:rw" -w /go/src/github.com/commonsearch/cosr-front -i -t commonsearch/local-front make test
 
 # Perform all available linting checks on the Go code
 golint:
@@ -97,3 +119,12 @@ minify_css:
 gobuild:
 	mkdir -p build
 	go build -o build/cosr-front.bin ./server
+
+# Build local Docker images
+docker_build:
+	docker build -t commonsearch/local-front .
+
+# Pull Docker images from the registry
+docker_pull:
+	docker pull commonsearch/local-front
+	docker pull commonsearch/local-elasticsearch

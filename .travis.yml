@@ -1,16 +1,10 @@
-language: go
+sudo: required
 
-env:
-  - GO15VENDOREXPERIMENT=1 COSR_ENV=ci
-
-go:
-  - "1.5"
+services:
+  - docker
 
 install:
-  - go get github.com/tools/godep
-  - godep restore
-  - make golint_deps
+  - make docker_build
 
 script:
-  - make golint
-  - make gotest
+  - make docker_test
