@@ -28,6 +28,10 @@ docker_devserver:
 start_services:
 	docker run -d -p 39200:9200 -p 39300:9300 commonsearch/local-elasticsearch
 
+# Starts the local services needed by cosr-front with the devindex
+start_services_devindex:
+	docker run -d -p 39200:9200 -p 39300:9300 commonsearch/local-elasticsearch-devindex
+
 # Stops local services
 stop_services:
 	bash -c 'docker ps | tail -n +2 | grep -E "((commonsearch/local-elasticsearch))" | cut -d " " -f 1 | xargs docker stop -t=0'
@@ -128,3 +132,4 @@ docker_build:
 docker_pull:
 	docker pull commonsearch/local-front
 	docker pull commonsearch/local-elasticsearch
+	docker pull commonsearch/local-elasticsearch-devindex

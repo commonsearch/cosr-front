@@ -21,17 +21,9 @@ Here is how they fit in our [general architecture](https://about.commonsearch.or
 
 ## Local install
 
-Running `cosr-front` on your local machine is very simple. You only need to have [Docker](https://docs.docker.com/engine/installation/) installed.
+A complete guide available in [INSTALL.md](INSTALL.md).
 
-Once Docker is launched, just run:
 
-```
-make docker_pull
-make start_services
-make docker_devserver
-```
-
-This will start a local instance of the Go server that you can access on [http://192.168.99.100:9700](http://192.168.99.100:9700) (If "192.168.99.100" is the IP of your local Docker server).
 
 ## Launching the tests
 
