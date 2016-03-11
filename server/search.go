@@ -180,7 +180,7 @@ func (req SearchRequest) PerformSearch() (*SearchResult, error) {
 
 	page := SearchResult{}
 
-	redirect := DetectBang(req.Query)
+	redirect := DetectBang(req.Query, req.Lang)
 
 	if redirect != "" {
 		page.Redirect = redirect
