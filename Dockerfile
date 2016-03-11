@@ -26,3 +26,10 @@ ADD Makefile /Makefile
 
 RUN go get github.com/tools/godep
 RUN make golint_deps
+
+
+#
+# Install SASS
+#
+RUN gem install sass
+

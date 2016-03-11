@@ -35,14 +35,10 @@ make docker_test
 
 Check out the [Makefile](https://github.com/commonsearch/cosr-front/blob/master/Makefile) for additional test, lint & build commands!
 
-## Alternate local install without Docker
 
-If for some reason you don't want to use Docker, you might be able to use a local Go install to run `cosr-front`. Please note that this is an unsupported method and might break at any time.
 
-After [installing Go](https://golang.org/doc/install), you should be able to do:
+## How to contribute
 
-```
-make devserver
-```
+Everything you need to know is in [CONTRIBUTING.md](CONTRIBUTING.md). We also have a tutorial on [how to send your first Frontend patch](https://about.commonsearch.org/developer/tutorials/first-frontend-patch).
 
-Then open the service running on [http://127.0.0.1:9700](http://127.0.0.1:9700).
+Thanks for joining the adventure!

@@ -39,6 +39,8 @@ A great bug report should be precise, informative and courteous. Including direc
 
 ## Contributing to issues
 
+We have a complete tutorial on [how to send your first Frontend patch](https://about.commonsearch.org/developer/tutorials/first-frontend-patch)!
+
 All our [issues](https://github.com/commonsearch/cosr-front/issues) are tagged by difficulty, language and status. The label [help wanted](https://github.com/commonsearch/cosr-front/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22) indicates that you are welcome to start investigating the issue immediately!
 
 If you are not sure yet on how to fix an issue, **don't worry**! Just post a comment in the issue saying that you are interested and a maintainer will help you. We really want to make it as easy as we can for newcomers and you will be welcomed with open arms.
@@ -48,14 +50,14 @@ We also add a [needs discussion](https://github.com/commonsearch/cosr-front/issu
 
 ## Local install
 
-You should look at our [README.md](README.md) to learn how to setup this repository on you local machine. Spoiler: it's easy!
+You should look at our [INSTALL.md](INSTALL.md) to learn how to setup this repository on you local machine. Spoiler: it's easy!
 
 
 ## Pull Requests
 
-When contributing code, you will open a pull request so that the maintainers can check that everything looks good before merging your code. GitHub has a good documentation on [how pull requests work][pull-requests].
+When contributing code, you will open a pull request so that the maintainers can check that everything looks good before merging your code. GitHub has a good documentation on [how pull requests work](https://help.github.com/articles/using-pull-requests/).
 
-Before pushing your changes, you should try to run the tests locally with `make test`. [Travis-CI](https://travis-ci.org) will also automatically run them every time you push.
+Before pushing your changes, you should try to run the tests locally with `make docker_test`. [Travis-CI](https://travis-ci.org) will also automatically run them every time you push.
 
 It's okay however to push failing tests in your branch if you need help from a maintainer!
 
@@ -65,6 +67,7 @@ It's okay however to push failing tests in your branch if you need help from a m
 Here are some more places to look for information:
 
 * [How to contribute](https://about.commonsearch.org/contributing): General info for developers, designers, testers, ...
+* [Tutorial: Your first Frontend patch](https://about.commonsearch.org/developer/tutorials/first-frontend-patch)
 * [cosr-participation](https://github.com/commonsearch/cosr-participation): Our repository dedicated to helping people get involved. You can create an issue there to give us feedback on your contribution experience!
 
 
