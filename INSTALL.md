@@ -13,7 +13,19 @@ There are only 2 dependencies you need to install to get started:
 - [Docker](http://docker.com) to run containers ([Installation instructions](https://docs.docker.com/engine/installation/))
 - [git](http://git-scm.com) to interact with GitHub ([Installation instructions](https://help.github.com/articles/set-up-git/))
 
+[Start the Docker service](https://docs.docker.com/engine/admin/systemd/#starting-the-docker-daemon) if it is not already running.
 
+```
+sudo systemctl start docker
+```
+
+To use the `docker` command as a regular user, you may either add yourself to the `docker` group or use `sudo`. Before adding your user to the `docker` group, please make sure you are aware of the [security implications](https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface).
+
+Since the Makefile invokes the `docker` command without `sudo`, you may want to create an alias for the `docker` command to use `sudo`; as further described in [this article](http://www.projectatomic.io/blog/2015/08/why-we-dont-let-non-root-users-run-docker-in-centos-fedora-or-rhel/).
+
+```
+alias docker="sudo /usr/bin/docker"
+```
 
 ## 2. Download the code & the Docker images
 
