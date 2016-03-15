@@ -18,19 +18,19 @@ godep_save:
 
 # Logins into the container
 docker_shell:
-	docker run --rm -v "$(PWD):/go/src/github.com/commonsearch/cosr-front:rw" -w /go/src/github.com/commonsearch/cosr-front -p 9700:9700 -i -t commonsearch/local-front bash
+	docker run -e DOCKER_HOST --rm -v "$(PWD):/go/src/github.com/commonsearch/cosr-front:rw" -w /go/src/github.com/commonsearch/cosr-front -p 9700:9700 -i -t commonsearch/local-front bash
 
 # Run server for local development in a container
 docker_devserver:
-	docker run --rm -v "$(PWD):/go/src/github.com/commonsearch/cosr-front:rw" -w /go/src/github.com/commonsearch/cosr-front -p 9700:9700 -i -t commonsearch/local-front make devserver
+	docker run -e DOCKER_HOST --rm -v "$(PWD):/go/src/github.com/commonsearch/cosr-front:rw" -w /go/src/github.com/commonsearch/cosr-front -p 9700:9700 -i -t commonsearch/local-front make devserver
 
 # Starts the local services needed by cosr-front
 start_services:
-	docker run -d -p 39200:9200 -p 39300:9300 commonsearch/local-elasticsearch
+	docker run -e DOCKER_HOST -d -p 39200:9200 -p 39300:9300 commonsearch/local-elasticsearch
 
 # Starts the local services needed by cosr-front with the devindex
 start_services_devindex:
-	docker run -d -p 39200:9200 -p 39300:9300 commonsearch/local-elasticsearch-devindex
+	docker run -e DOCKER_HOST -d -p 39200:9200 -p 39300:9300 commonsearch/local-elasticsearch-devindex
 
 # Stops local services
 stop_services:
@@ -130,6 +130,8 @@ docker_build:
 
 # Pull Docker images from the registry
 docker_pull:
+	docker version
+	docker info
 	docker pull commonsearch/local-front
 	docker pull commonsearch/local-elasticsearch
 	docker pull commonsearch/local-elasticsearch-devindex

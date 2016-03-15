@@ -23,7 +23,9 @@ func main() {
 
 	router := CreateRouter()
 
-	log.Printf("Server listening at http://%s:%s\n", Config.Host, Config.Port)
+	log.Printf(
+		"Server listening on %s:%s - You should open http://%s:%s in your browser!\n",
+		Config.Host, Config.Port, GetDockerDaemonIP(), Config.Port)
 
 	log.Fatal(http.ListenAndServe(Config.Host+":"+Config.Port, router))
 
