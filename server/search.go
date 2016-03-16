@@ -38,6 +38,7 @@ type SearchResult struct {
 	Redirect string             `json:"r,omitempty"`
 	HasMore  bool               `json:"m,omitempty"`
 	Timing   SearchResultTiming `json:"t,omitempty"`
+	ResultCount int64
 }
 
 // SearchRequest entirely defines a search request.
@@ -218,7 +219,7 @@ func (req SearchRequest) PerformSearch() (*SearchResult, error) {
 	// TODO: use ES count to determine that
 	// TODO: also return textSearchResult.Hits.TotalHits
 	page.HasMore = (len(textSearchResult.Hits.Hits) >= Config.ResultPageSize)
-
+	page.ResultCount = textSearchResult.Hits.TotalHits
 	docsEsBody := BuildDocsRequest(textSearchResult)
 
 	docsSearchResult, docsRequestTime, err := ElasticsearchRequest(
