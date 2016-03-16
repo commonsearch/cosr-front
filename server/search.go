@@ -34,11 +34,11 @@ type Hit struct {
 
 // SearchResult defines the result for a query, passed to the template.
 type SearchResult struct {
-	Hits     []Hit              `json:"h,omitempty"`
-	Redirect string             `json:"r,omitempty"`
-	HasMore  bool               `json:"m,omitempty"`
-	Timing   SearchResultTiming `json:"t,omitempty"`
-	ResultCount int64           `json:"c,omitempty"`
+	Hits       []Hit              `json:"h,omitempty"`
+	Redirect   string             `json:"r,omitempty"`
+	HasMore    bool               `json:"m,omitempty"`
+	Timing     SearchResultTiming `json:"t,omitempty"`
+	TotalCount int64              `json:"c,omitempty"`
 }
 
 // SearchRequest entirely defines a search request.
@@ -219,7 +219,7 @@ func (req SearchRequest) PerformSearch() (*SearchResult, error) {
 	// TODO: use ES count to determine that
 	// TODO: also return textSearchResult.Hits.TotalHits
 	page.HasMore = (len(textSearchResult.Hits.Hits) >= Config.ResultPageSize)
-	page.ResultCount = textSearchResult.Hits.TotalHits
+	page.TotalCount = textSearchResult.Hits.TotalHits
 	docsEsBody := BuildDocsRequest(textSearchResult)
 
 	docsSearchResult, docsRequestTime, err := ElasticsearchRequest(

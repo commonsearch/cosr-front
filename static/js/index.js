@@ -218,8 +218,7 @@
     var html = "";
 
     if (result["c"]) {
-      html += "<div id='resultcount' class='r'>Number of results: " +
-                result["c"] + "</div>";
+      html += "<div id='c'>About " + result["c"] + " results</div>";
     }
 
     for (var i = 0; i < (result["h"] || []).length; i++) {

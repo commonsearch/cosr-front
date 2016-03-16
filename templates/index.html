@@ -77,10 +77,8 @@
     {{end}}
 
     <div id="hits">
-      {{if .Result.ResultCount}}
-        <div id="resultcount" class="r">
-          Number of results: {{.Result.ResultCount}}
-        </div>
+      {{if .Result.TotalCount}}
+        <div id="c">About {{.Result.TotalCount}} results</div>
       {{end}}
       {{range $index, $element := .Result.Hits}}
         <div class="r">
