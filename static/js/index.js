@@ -217,7 +217,7 @@
 
     var html = "";
 
-    if (result.ResultCount) {
+    if (result["c"]) {
       html += "<div id='resultcount' class='r'>Number of results: " +
                 result["c"] + "</div>";
     }
