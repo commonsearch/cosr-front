@@ -38,7 +38,7 @@ type SearchResult struct {
 	Redirect string             `json:"r,omitempty"`
 	HasMore  bool               `json:"m,omitempty"`
 	Timing   SearchResultTiming `json:"t,omitempty"`
-	ResultCount int64
+	ResultCount int64           `json:"c,omitempty"`
 }
 
 // SearchRequest entirely defines a search request.

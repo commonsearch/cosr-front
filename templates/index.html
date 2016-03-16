@@ -77,6 +77,11 @@
     {{end}}
 
     <div id="hits">
+      {{if .Result.ResultCount}}
+        <div id="resultcount" class="r">
+          Number of results: {{.Result.ResultCount}}
+        </div>
+      {{end}}
       {{range $index, $element := .Result.Hits}}
         <div class="r">
           <h3><a href="{{ .URL | html }}">{{ .Title | html }}</a></h3>
