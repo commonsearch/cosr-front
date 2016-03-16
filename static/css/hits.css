@@ -1,4 +1,8 @@
 
+#hits {
+  position:relative;
+}
+
 /* Container for each result */
 .r {
   margin:20px 10px;
@@ -40,6 +44,16 @@
 /* Message when there are zero results */
 .z {
   padding:10px;
+}
+
+/* Result count */
+#c {
+  color: #999;
+  position:absolute;
+  top:-17px;
+  right:11px;
+  text-align:right;
+  font-size:11px;
 }
 
 /* Pagination */

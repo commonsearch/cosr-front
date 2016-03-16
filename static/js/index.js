@@ -216,6 +216,11 @@
   var renderHits = function(search, result) {
 
     var html = "";
+
+    if (result["c"]) {
+      html += "<div id='c'>About " + result["c"] + " results</div>";
+    }
+
     for (var i = 0; i < (result["h"] || []).length; i++) {
       var hit = result["h"][i];
       html += "<div class='r'>" +
@@ -224,6 +229,7 @@
                 "<div class='s'>"+htmlSafe(hit["s"])+"</div>" +
               "</div>";
     }
+
     if (!html && search["q"]) {
       html = "<div class='z'>We didn't find any results for this search, sorry!</div>";
     }
