@@ -219,7 +219,7 @@
 
     if (result.ResultCount) {
       html += "<div id='resultcount' class='r'>Number of results: " +
-                result.ResultCount + "</div>";
+                result["c"] + "</div>";
     }
 
     for (var i = 0; i < (result["h"] || []).length; i++) {
