@@ -80,12 +80,54 @@
   // Guess if a key event is associated to a printable character
   // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
   var isPrintableKeyEvent = function(event) {
+	 
+	 //When "Esc" is press send focus back to HTML document
+	 if(event.keyCode == 27){
+		 // Remove focus from any focused element
+		 // This action will transfer focus back HTML documents
+		 if (document.activeElement) {
+		 	document.activeElement.blur();
+		 }
+	 }
+	 
+	 // Traverse Search link indirection based on Up and down arrow key press event
+	traverseElementOnKeyDown(event);
+	    
     return (
       (!event.metaKey && !event.altKey && !event.ctrlKey) &&
       (event.keyCode > 46) &&
       (event.keyCode < 112 || event.keyCode > 145) &&
       (event.keyCode < 91 || event.keyCode > 95)
     );
+  };
+  
+    // Function which is used to traverse search links based on Up and down arrow key
+  var traverseElementOnKeyDown = function(event) {
+	
+	// Find active Element tabIndex
+	var tabIndexElement = document.activeElement.tabIndex;
+	
+	if(tabIndexElement < 8){
+		return;
+	}
+	// Based on Up and Down Key press move focus from next or previous search links
+	if(event.keyCode == 38)	{ // up key press
+		findElementByAttributeValue('tabIndex',--tabIndexElement).focus();
+	}
+	if(event.keyCode == 40)	{ // down key press
+		findElementByAttributeValue('tabIndex',++tabIndexElement).focus();
+	}	
+	
+  };
+
+  // Find element from document based on Attribute and value
+  var findElementByAttributeValue =	function(attribute, value) {
+	  var All = document.getElementsByTagName('*');
+	  for (var i = 0; i < All.length; i++) {
+		if (All[i].getAttribute(attribute) == value) { 
+			return All[i]; 
+		}
+	  }
   };
 
   // Get the associated URL to a Search object
@@ -214,13 +256,16 @@
   // We should aim to have the same result whether we are rending from here
   // or from the Go template!
   var renderHits = function(search, result) {
-
+	
+	// TabIndex starts from 9 we already got 8 elements on html page
+	var tabIndexCount = 9;
+	
     var html = "";
     for (var i = 0; i < (result["h"] || []).length; i++) {
       var hit = result["h"][i];
       html += "<div class='r'>" +
-                "<h3><a href='"+hit["u"]+"'>"+htmlSafe(hit["t"])+"</a></h3>" +
-                "<div class='u'><a href='"+hit["u"]+"'>" + simplifyURL(hit["u"]) + "</a></div>" +
+                "<h3><a href='"+hit["u"]+"' tabindex='"+(tabIndexCount+=1)+"'>"+htmlSafe(hit["t"])+"</a></h3>" +
+                "<div class='u'><a href='"+hit["u"]+"' tabindex='"+(tabIndexCount+=1)+"'>" + simplifyURL(hit["u"]) + "</a></div>" +
                 "<div class='s'>"+htmlSafe(hit["s"])+"</div>" +
               "</div>";
     }
