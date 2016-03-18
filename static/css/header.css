@@ -28,6 +28,7 @@
 #logo {
   background:url(/img/logo-400.png) no-repeat;
   background-size:92px 30px;
+  cursor:pointer;
   height:30px;
   width:92px;
   color:transparent;

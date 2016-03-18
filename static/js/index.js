@@ -67,6 +67,9 @@
     }
   };
 
+  // Track all the current pending timeouts
+  var timeouts = [];
+
   // Equivalent of underscorejs's _.debounce. Returns a function that will be called
   // only after the wrapping function has stopped being called for 'wait' milliseconds.
   var debounce = function(func, wait) {
@@ -74,6 +77,7 @@
     return function() {
       if (timeout) window.clearTimeout(timeout);
       timeout = window.setTimeout(func, wait);
+      timeouts.push(timeout);
     };
   };
 
@@ -131,6 +135,7 @@
       eltPagination = $id("pager"),
       eltDebug = $id("dbg"),
       eltLang = $id("g").childNodes[0],
+      eltLogo = $id("logo"),
       eltTitle = document.getElementsByTagName('title')[0];
 
   // Page layout (are we on the homepage or search results?) is controlled by a single CSS class
@@ -387,6 +392,21 @@
     if (!event.state || !event.state["s"]) return;
     eltSearchInput.value = htmlSafe(event.state["s"]["q"]);
     newSearch(true, true);
+  };
+
+  eltLogo.onclick = function() {
+    // Restore the state for "full" layout
+    setPageLayout("full");
+    eltSearchInput.value = "";
+
+    // Append the language info to the current url
+    window.history.pushState("", "", "?g=" + eltLang.value);
+
+    // Clear any pending timeouts
+    timeouts.forEach(function(timeout) {
+      window.clearTimeout(timeout);
+    });
+    timeouts = [];
   };
 
   // If the user added some input before the JS was fully loaded, we want to capture it
