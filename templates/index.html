@@ -79,7 +79,7 @@
     <div id="hits">
       {{range $index, $element := .Result.Hits}}
         <div class="r">
-          <h3><a href="{{ .URL | html }}">{{ .Title | html }}</a></h3>
+          <h3><a href="{{ .URL | html }}" tabIndex="{{add $index 6}}">{{ .Title | html }}</a></h3>
           <div class="u"><a href="{{ .URL | html }}">{{ .URL | simplifyURL | html }}</a></div>
           <div class='b'>{{ .Summary | html }}</div>
         </div>

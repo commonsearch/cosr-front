@@ -107,21 +107,32 @@
 	// Find active Element tabIndex
 	var tabIndexElement = document.activeElement.tabIndex;
 	
-	if(tabIndexElement < 8){
+	// tabIndex for element is 0 then send focus back to first search link
+	if(tabIndexElement == 30){
+		document.querySelector('[tabIndex="6"]').focus();
+		event.preventDefault();
+		return;
+	}
+	
+	if(tabIndexElement < 6){
 		return;
 	}
 	// Based on Up and Down Key press move focus from next or previous search links
 	if(event.keyCode == 38)	{ // up key press
 		var queryString = '[tabindex="'+(--tabIndexElement)+'"]';
-		document.querySelector(queryString).focus();
+		var currentElement = document.querySelector(queryString);
+		currentElement.focus();
+		event.preventDefault();
 	}
 	if(event.keyCode == 40)	{ // down key press
 		var queryString = '[tabindex="'+(++tabIndexElement)+'"]';
-		document.querySelector(queryString).focus();
+		var currentElement = document.querySelector(queryString);
+		currentElement.focus();
+		event.preventDefault();
 	}	
 	
   };
-
+  
   // Get the associated URL to a Search object
   // Same function is used on the server side
   // If pageDiff is false, don't include page numbers in URLs
@@ -249,15 +260,15 @@
   // or from the Go template!
   var renderHits = function(search, result) {
 	
-	// TabIndex starts from 9 we already got 8 elements on html page
-	var tabIndexCount = 9;
+	// TabIndex starts from 6 we already got 5 elements on html page
+	var tabIndexCount = 5;
 	
     var html = "";
     for (var i = 0; i < (result["h"] || []).length; i++) {
       var hit = result["h"][i];
       html += "<div class='r'>" +
                 "<h3><a href='"+hit["u"]+"' tabindex='"+(tabIndexCount+=1)+"'>"+htmlSafe(hit["t"])+"</a></h3>" +
-                "<div class='u'><a href='"+hit["u"]+"'>" + simplifyURL(hit["u"]) + "</a></div>" +
+                "<div class='u'><a href='"+hit["u"]+"' tabIndex='-1'>" + simplifyURL(hit["u"]) + "</a></div>" +
                 "<div class='s'>"+htmlSafe(hit["s"])+"</div>" +
               "</div>";
     }
