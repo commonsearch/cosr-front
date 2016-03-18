@@ -257,7 +257,7 @@
       var hit = result["h"][i];
       html += "<div class='r'>" +
                 "<h3><a href='"+hit["u"]+"' tabindex='"+(tabIndexCount+=1)+"'>"+htmlSafe(hit["t"])+"</a></h3>" +
-                "<div class='u'><a href='"+hit["u"]+"' tabindex='"+(tabIndexCount+=1)+"'>" + simplifyURL(hit["u"]) + "</a></div>" +
+                "<div class='u'><a href='"+hit["u"]+"'>" + simplifyURL(hit["u"]) + "</a></div>" +
                 "<div class='s'>"+htmlSafe(hit["s"])+"</div>" +
               "</div>";
     }
