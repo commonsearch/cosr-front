@@ -112,22 +112,14 @@
 	}
 	// Based on Up and Down Key press move focus from next or previous search links
 	if(event.keyCode == 38)	{ // up key press
-		findElementByAttributeValue('tabIndex',--tabIndexElement).focus();
+		var queryString = '[tabindex="'+(--tabIndexElement)+'"]';
+		document.querySelector(queryString).focus();
 	}
 	if(event.keyCode == 40)	{ // down key press
-		findElementByAttributeValue('tabIndex',++tabIndexElement).focus();
+		var queryString = '[tabindex="'+(++tabIndexElement)+'"]';
+		document.querySelector(queryString).focus();
 	}	
 	
-  };
-
-  // Find element from document based on Attribute and value
-  var findElementByAttributeValue =	function(attribute, value) {
-	  var All = document.getElementsByTagName('*');
-	  for (var i = 0; i < All.length; i++) {
-		if (All[i].getAttribute(attribute) == value) { 
-			return All[i]; 
-		}
-	  }
   };
 
   // Get the associated URL to a Search object
