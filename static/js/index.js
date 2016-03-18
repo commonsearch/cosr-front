@@ -377,8 +377,18 @@
     }
   };
 
+  // Set logo href with language info
+  var setLogoHref = function(lang) {
+    if (eltLogo.href.indexOf("?g=") < 0) {
+      eltLogo.href += "?g=" + lang;
+    } else {
+      eltLogo.href = eltLogo.href.slice(0, -2) + lang;
+    }
+  };
+
   // Lang dropdown was used
   eltLang.onchange = function() {
+    setLogoHref(eltLang.value);
     if (lastConsideredSearch["g"] == getCurrentSearch()["g"]) return;
     newSearchDebounced();
   };
@@ -390,9 +400,8 @@
     newSearch(true, true);
   };
 
-  eltLogo.onclick = function(event) {
-    eltLogo.href += "?g=" + eltLang.value;
-  };
+  // Set the logo href with language info in the template
+  setLogoHref(eltLang.value);
 
   // If the user added some input before the JS was fully loaded, we want to capture it
   newSearch(false, false);
