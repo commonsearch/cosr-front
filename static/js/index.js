@@ -131,6 +131,7 @@
       eltPagination = $id("pager"),
       eltDebug = $id("dbg"),
       eltLang = $id("g").childNodes[0],
+      eltLogo = $id("logo"),
       eltTitle = document.getElementsByTagName('title')[0];
 
   // Page layout (are we on the homepage or search results?) is controlled by a single CSS class
@@ -376,8 +377,18 @@
     }
   };
 
+  // Set logo href with language info
+  var setLogoHref = function(lang) {
+    if (eltLogo.href.indexOf("?g=") < 0) {
+      eltLogo.href += "?g=" + lang;
+    } else {
+      eltLogo.href = eltLogo.href.slice(0, -2) + lang;
+    }
+  };
+
   // Lang dropdown was used
   eltLang.onchange = function() {
+    setLogoHref(eltLang.value);
     if (lastConsideredSearch["g"] == getCurrentSearch()["g"]) return;
     newSearchDebounced();
   };
@@ -388,6 +399,9 @@
     eltSearchInput.value = htmlSafe(event.state["s"]["q"]);
     newSearch(true, true);
   };
+
+  // Set the logo href with language info in the template
+  setLogoHref(eltLang.value);
 
   // If the user added some input before the JS was fully loaded, we want to capture it
   newSearch(false, false);
