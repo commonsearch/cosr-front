@@ -15,6 +15,10 @@ a:hover {
   text-decoration:underline;
 }
 
+a:focus {
+  text-decoration:underline;
+}
+
 /* Misc. elements */
 
 body #demowarning {

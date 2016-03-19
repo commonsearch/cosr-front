@@ -28,18 +28,18 @@
     <header id="h">
 
       <div class="about">
-        <a href="https://about.commonsearch.org/">About</a>
+        <a href="https://about.commonsearch.org/" tabindex="1">About</a>
       </div>
       <form id="f" action="/" method="GET" data-init="{{ .Search | toJSON | html }}">
-        <a href="/" id="logo">Common Search</a>
+        <a href="/" id="logo" tabindex="2">Common Search</a>
         <div id="w">
 
           <div id="qw">
-            <input id="q" name="q" type="text" size="60" value="{{ .Search.Query | html }}" {{if eq .Search.Query ""}}autofocus{{end}} />
+            <input id="q" name="q" type="text" size="60" value="{{ .Search.Query | html }}" {{if eq .Search.Query ""}}autofocus{{end}} tabindex="3"/>
           </div>
 
           <span id="g">
-            <select name="g">
+            <select name="g" tabindex="4">
               <option {{ if eq .Search.Lang "ar" }}selected{{end}} value="ar">AR</option>
               <option {{ if eq .Search.Lang "de" }}selected{{end}} value="de">DE</option>
               <option {{ if eq .Search.Lang "en" "" }}selected{{end}} value="en">EN</option>
@@ -58,7 +58,7 @@
             </select>
           </span>
 
-          <input id="s" type="submit" value="&#x1f50d;" />
+          <input id="s" type="submit" value="&#x1f50d;" tabindex="5"/>
         </div>
 
       </form>
@@ -67,11 +67,11 @@
 
     {{if getConfig.IsDemo}}
       <div id="demowarning">
-        Welcome! This is a <b>demo</b> of the <a href="https://about.commonsearch.org">Common Search</a> interface.<br/><br/>
+        Welcome! This is a <b>demo</b> of the <a href="https://about.commonsearch.org" tabindex="-1">Common Search</a> interface.<br/><br/>
         The search results are NOT complete/relevant. For this demo they are restricted to <b>some homepages</b> from the Web.<br/><br/>
-        Can you help us improve this interface? We are <a href="https://about.commonsearch.org/contributing">looking for contributors</a>!
+        Can you help us improve this interface? We are <a href="https://about.commonsearch.org/contributing" tabindex="-1">looking for contributors</a>!
         <br/><br/>
-        <button onclick="document.getElementById('demowarning').style.display='none';">OK, I understand this is a demo.</button>
+        <button onclick="document.getElementById('demowarning').style.display='none';" tabindex="-1">OK, I understand this is a demo.</button>
       </div>
     {{end}}
 
@@ -81,7 +81,7 @@
       {{end}}
       {{range $index, $element := .Result.Hits}}
         <div class="r">
-          <h3><a href="{{ .URL | html }}">{{ .Title | html }}</a></h3>
+          <h3><a href="{{ .URL | html }}" tabIndex="{{add $index 6}}">{{ .Title | html }}</a></h3>
           <div class="u"><a href="{{ .URL | html }}">{{ .URL | simplifyURL | html }}</a></div>
           <div class='b'>{{ .Summary | html }}</div>
         </div>

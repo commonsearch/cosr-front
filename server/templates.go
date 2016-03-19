@@ -84,6 +84,7 @@ func ParseTemplate(filepath string) *template.Template {
 		"simplifyURL": simplifyURL,
 		"toJSON":      toJSON,
 		"getConfig":   getConfig,
+		"add":         add,
 	}
 
 	t, err := template.New(filepath).Funcs(funcMap).Parse(preprocessTemplate(string(cnt)))
@@ -97,4 +98,9 @@ func ParseTemplate(filepath string) *template.Template {
 // LoadTemplates loads and parses all known templates at startup.
 func LoadTemplates() {
 	Templates["index.html"] = ParseTemplate("index.html")
+}
+
+// Used to generate tabIndex for search links
+func add(x, y int) int {
+    return x + y
 }
