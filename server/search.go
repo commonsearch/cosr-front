@@ -248,6 +248,9 @@ func (req SearchRequest) PerformSearch() (*SearchResult, error) {
 			URL:     hit.Fields["url"].([]interface{})[0].(string),
 			Title:   hit.Fields["title"].([]interface{})[0].(string),
 			Summary: hit.Fields["summary"].([]interface{})[0].(string)}
+		
+		//Call Highlighung Function	
+		hitsByIds[hit.Id].AddHighlighting(req.Query)		
 	}
 
 	// Restore the original order of the text results.
@@ -258,6 +261,12 @@ func (req SearchRequest) PerformSearch() (*SearchResult, error) {
 	}
 
 	return &page, nil
+}
+
+//separate Highlighting function for Title and Summary
+func (hit Hit) AddHighlighting(query string){
+	hit.Title = strings.Replace(hit.Title, " "+query+" ", " <b>"+query+"</b> ",-1)
+	hit.Summary = strings.Replace(hit.Summary, " "+query+" ", " <b>"+query+"</b> ",-1)
 }
 
 // PerformSearchWithTiming adds a Timing.Total to PerformSearch().
