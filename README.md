@@ -29,11 +29,20 @@ A complete guide available in [INSTALL.md](INSTALL.md).
 
 ## Launching the tests
 
-You can run our full test suite easily:
+You can run our full server test suite easily:
 
 ```
 make docker_test
 ```
+
+You can also launch our automated UI tests:
+
+```
+make start_services_devindex
+make docker_uitest
+```
+
+On your local machine they will use [PhantomJS](https://phantomjs.org) by default but we run them with Sauce Labs on many different browsers at each push. See the [latest builds on Sauce Labs](https://saucelabs.com/open_sauce/user/commonsearch).
 
 Check out the [Makefile](https://github.com/commonsearch/cosr-front/blob/master/Makefile) for additional test, lint & build commands!
 

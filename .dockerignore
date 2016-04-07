@@ -1,1 +1,5 @@
 /build
+/tests/node_modules
+/vendor
+/tools
+.git

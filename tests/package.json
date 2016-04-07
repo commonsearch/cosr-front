@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "name": "cosr-front-tests",
+  "dependencies": {
+    "webdriverio": "3.4.0"
+  },
+  "devDependencies": {
+    "wdio-dot-reporter": "0.0.5",
+    "wdio-mocha-framework": "^0.2.11",
+    "wdio-sauce-service": "^0.2.2"
+  }
+}

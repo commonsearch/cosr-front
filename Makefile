@@ -50,7 +50,7 @@ test: lint gotest
 
 # Lint and test everything inside Docker
 docker_test:
-	docker run --rm -v "$(PWD):/go/src/github.com/commonsearch/cosr-front:rw" -w /go/src/github.com/commonsearch/cosr-front -i -t commonsearch/local-front make test
+	docker run -e DOCKER_HOST --rm -v "$(PWD):/go/src/github.com/commonsearch/cosr-front:rw" -w /go/src/github.com/commonsearch/cosr-front -i -t commonsearch/local-front make test
 
 # Perform all available linting checks on the Go code
 golint:
@@ -79,6 +79,19 @@ gotest:
 gobench:
 	COSR_PATHFRONT="${PWD}" go test ./server -bench=. -benchtime=5s
 
+# Run local UI tests with PhantomJS
+uitest:
+	wdio tests/wdio.conf.local.js
+
+docker_uitest:
+	docker run -e DOCKER_HOST --rm -v "$(PWD):/go/src/github.com/commonsearch/cosr-front:rw" -w /go/src/github.com/commonsearch/cosr-front -i -t commonsearch/local-front make uitest
+
+# Run UI tests on Sauce Labs
+uitest_sauce:
+	wdio tests/wdio.conf.sauce.js
+
+docker_uitest_sauce:
+	docker run -e DOCKER_HOST -e SAUCE_USERNAME -e SAUCE_ACCESS_KEY -e TRAVIS_BUILD_NUMBER --rm -v "$(PWD):/go/src/github.com/commonsearch/cosr-front:rw" -w /go/src/github.com/commonsearch/cosr-front -i -t commonsearch/local-front make uitest_sauce
 
 
 #

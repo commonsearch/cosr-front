@@ -4,7 +4,12 @@ services:
   - docker
 
 install:
+  - ./tools/git-set-file-times
+  - make docker_pull
   - make docker_build
 
 script:
   - make docker_test
+  - make start_services_devindex
+  - make docker_uitest_sauce
+  - make stop_services
