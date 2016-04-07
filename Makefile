@@ -82,12 +82,15 @@ gobench:
 uitest:
 	wdio tests/wdio.conf.local.js
 
+docker_uitest:
+	docker run -e DOCKER_HOST --rm -v "$(PWD):/go/src/github.com/commonsearch/cosr-front:rw" -w /go/src/github.com/commonsearch/cosr-front -i -t commonsearch/local-front make uitest
+
 # Run UI tests on Sauce Labs
 uitest_sauce:
 	wdio tests/wdio.conf.sauce.js
 
 docker_uitest_sauce:
-	docker run -e DOCKER_HOST -e SAUCE_USERNAME -e SAUCE_ACCESS_KEY --rm -v "$(PWD):/go/src/github.com/commonsearch/cosr-front:rw" -w /go/src/github.com/commonsearch/cosr-front -i -t commonsearch/local-front make uitest_sauce
+	docker run -e DOCKER_HOST -e SAUCE_USERNAME -e SAUCE_ACCESS_KEY -e TRAVIS_BUILD_NUMBER --rm -v "$(PWD):/go/src/github.com/commonsearch/cosr-front:rw" -w /go/src/github.com/commonsearch/cosr-front -i -t commonsearch/local-front make uitest_sauce
 
 
 #

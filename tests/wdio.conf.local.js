@@ -135,15 +135,15 @@ exports.config = {
         if (process.env.USE_SAUCE_CONNECT) {
             console.log("Spawning local Sauce Connect proxy...");
             SAUCE_CONNECT_PROCESS =  spawn("sc");
-            execSync('while ! timeout 1 bash -c "echo > /dev/tcp/localhost/4445"; do sleep 0.1; done');
+            execSync('while ! timeout 1 bash -c "echo > /dev/tcp/localhost/4445" 2>/dev/null; do sleep 0.1; done');
         } else {
             console.log("Spawning local PhantomJS process...");
             PHANTOMJS_PROCESS = spawn("phantomjs", ["--webdriver=4444"]);
-            execSync('while ! timeout 1 bash -c "echo > /dev/tcp/localhost/4444"; do sleep 0.1; done');
+            execSync('while ! timeout 1 bash -c "echo > /dev/tcp/localhost/4444" 2>/dev/null; do sleep 0.1; done');
         }
 
         // Wait synchronously for the ports to be open
-        execSync('while ! timeout 1 bash -c "echo > /dev/tcp/localhost/9700"; do sleep 0.1; done');
+        execSync('while ! timeout 1 bash -c "echo > /dev/tcp/localhost/9700" 2>/dev/null; do sleep 0.1; done');
 
         console.log("Local ports are open!");
 

@@ -85,8 +85,8 @@ config.capabilities = [{
 
 config.capabilities.forEach(function(capability) {
 	// capability['tunnel-identifier'] = process.env.TRAVIS_JOB_NUMBER;
-	capability.name = 'integration';
-	capability.build = process.env.TRAVIS_BUILD_NUMBER;
+	capability.name = 'frontend-uitest';
+	capability.build = "build-" + process.env.TRAVIS_BUILD_NUMBER;
 	capability.public = true;
 });
 
