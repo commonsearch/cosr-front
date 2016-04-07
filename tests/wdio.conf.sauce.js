@@ -90,7 +90,7 @@ config.capabilities.forEach(function(capability) {
 	capability.public = true;
 });
 
-config.mochaOpts.timeout = 60000;
+config.mochaOpts.timeout = config.mochaOpts.timeout * 10;
 
 config.services = ["sauce"];
 

@@ -29,9 +29,9 @@ describe('basic usage', function() {
         var hits = yield browser.elements("#hits .r");
         assert.equal(hits.value.length, 25);
 
-        // First hit should be apple.com
-        var res = yield browser.getText("#hits .u");
-        assert.equal(res[0], "apple.com");
+        var first_url = yield browser.elementIdElement(hits.value[0].ELEMENT, ".u");
+        var first_url_text = yield browser.elementIdText(first_url.value.ELEMENT);
+        assert.equal(first_url_text.value, "apple.com");
 
         // And the URL should have been updated after the history timeout of 2s
         yield sleep(3000);
