@@ -73,3 +73,24 @@ func TestSearchHrefPagination(t *testing.T) {
 	}
 
 }
+
+func TestHighlighing(t *testing.T) {
+	t.Parallel()
+
+	if AddHighlighting("xx yy", "xx") != "<b>xx</b> yy" {
+		t.Fatal("Highlighting error")
+	}
+
+	if AddHighlighting(".xX/ yy", "xx") != ".<b>xX</b>/ yy" {
+		t.Fatal("Highlighting error")
+	}
+
+	if AddHighlighting(".xX/ yy", "yy") != ".xX/ <b>yy</b>" {
+		t.Fatal("Highlighting error")
+	}
+
+	if AddHighlighting("xx zz yy", "xx   yy") != "<b>xx</b> zz <b>yy</b>" {
+		t.Fatal("Highlighting error")
+	}
+
+}

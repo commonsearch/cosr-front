@@ -102,5 +102,5 @@ func LoadTemplates() {
 
 // Used to generate tabIndex for search links
 func add(x, y int) int {
-    return x + y
+	return x + y
 }

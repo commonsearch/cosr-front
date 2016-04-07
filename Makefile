@@ -56,6 +56,7 @@ docker_test:
 golint:
 	go fmt ./server
 	golint ./server
+	test -z "$$(golint ./server)"
 	go tool vet -all ./server
 	aligncheck ./server
 	structcheck ./server

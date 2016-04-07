@@ -4,10 +4,15 @@ import (
 	"encoding/json"
 	"fmt"
 	"gopkg.in/olivere/elastic.v3"
+	"html"
 	"net/url"
+	"regexp"
 	"strings"
 	"time"
 )
+
+// Remove most of the useless spaces in HTML.
+var termSplitRegexp = regexp.MustCompile("\\s+")
 
 // SearchResultTiming is used to measure timings at various steps in the request, in microseconds.
 type SearchResultTiming struct {
@@ -248,9 +253,10 @@ func (req SearchRequest) PerformSearch() (*SearchResult, error) {
 			URL:     hit.Fields["url"].([]interface{})[0].(string),
 			Title:   hit.Fields["title"].([]interface{})[0].(string),
 			Summary: hit.Fields["summary"].([]interface{})[0].(string)}
-		
-		//Call Highlighung Function	
-		hitsByIds[hit.Id].AddHighlighting(req.Query)		
+
+		hitsByIds[hit.Id].Title = AddHighlighting(hitsByIds[hit.Id].Title, req.Query)
+		hitsByIds[hit.Id].Summary = AddHighlighting(hitsByIds[hit.Id].Summary, req.Query)
+
 	}
 
 	// Restore the original order of the text results.
@@ -263,10 +269,22 @@ func (req SearchRequest) PerformSearch() (*SearchResult, error) {
 	return &page, nil
 }
 
-//separate Highlighting function for Title and Summary
-func (hit Hit) AddHighlighting(query string){
-	hit.Title = strings.Replace(hit.Title, " "+query+" ", " <b>"+query+"</b> ",-1)
-	hit.Summary = strings.Replace(hit.Summary, " "+query+" ", " <b>"+query+"</b> ",-1)
+// AddHighlighting wraps the query terms in bold inside Title and Summary
+func AddHighlighting(text string, query string) string {
+
+	textResult := html.EscapeString(text)
+
+	// We want to highlight each term individually
+	for _, term := range termSplitRegexp.Split(query, -1) {
+		termEscaped := regexp.QuoteMeta(term)
+		re, err := regexp.Compile("(?i)(^|\\W)(" + termEscaped + ")($|\\W)")
+		if err != nil {
+			continue
+		}
+		textResult = re.ReplaceAllString(textResult, "$1<b>$2</b>$3")
+	}
+
+	return textResult
 }
 
 // PerformSearchWithTiming adds a Timing.Total to PerformSearch().

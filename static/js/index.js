@@ -80,7 +80,7 @@
   // Guess if a key event is associated to a printable character
   // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
   var isPrintableKeyEvent = function(event) {
-	 
+
 	 //When "Esc" is press send focus back to HTML document
 	 if(event.keyCode == 27){
 		 // Remove focus from any focused element
@@ -89,10 +89,10 @@
 		 	document.activeElement.blur();
 		 }
 	 }
-	 
+
 	 // Traverse Search link indirection based on Up and down arrow key press event
 	traverseElementOnKeyDown(event);
-	    
+
     return (
       (!event.metaKey && !event.altKey && !event.ctrlKey) &&
       (event.keyCode > 46) &&
@@ -100,20 +100,20 @@
       (event.keyCode < 91 || event.keyCode > 95)
     );
   };
-  
+
     // Function which is used to traverse search links based on Up and down arrow key
   var traverseElementOnKeyDown = function(event) {
-	
+
 	// Find active Element tabIndex
 	var tabIndexElement = document.activeElement.tabIndex;
-	
+
 	// tabIndex for element is 0 then send focus back to first search link
 	if(tabIndexElement == 30){
 		document.querySelector('[tabIndex="6"]').focus();
 		event.preventDefault();
 		return;
 	}
-	
+
 	if(tabIndexElement < 6){
 		return;
 	}
@@ -129,10 +129,10 @@
 		var currentElement = document.querySelector(queryString);
 		currentElement.focus();
 		event.preventDefault();
-	}	
-	
+	}
+
   };
-  
+
   // Get the associated URL to a Search object
   // Same function is used on the server side
   // If pageDiff is false, don't include page numbers in URLs
@@ -260,10 +260,10 @@
   // We should aim to have the same result whether we are rending from here
   // or from the Go template!
   var renderHits = function(search, result) {
-	
+
 	// TabIndex starts from 6 we already got 5 elements on html page
 	var tabIndexCount = 5;
-	
+
     var html = "";
 
     if (result["c"]) {
@@ -273,9 +273,9 @@
     for (var i = 0; i < (result["h"] || []).length; i++) {
       var hit = result["h"][i];
       html += "<div class='r'>" +
-                "<h3><a href='"+hit["u"]+"' tabindex='"+(tabIndexCount+=1)+"'>"+htmlSafe(hit["t"])+"</a></h3>" +
+                "<h3><a href='"+hit["u"]+"' tabindex='"+(tabIndexCount+=1)+"'>"+hit["t"]+"</a></h3>" +
                 "<div class='u'><a href='"+hit["u"]+"' tabIndex='-1'>" + simplifyURL(hit["u"]) + "</a></div>" +
-                "<div class='s'>"+htmlSafe(hit["s"])+"</div>" +
+                "<div class='s'>"+hit["s"]+"</div>" +
               "</div>";
     }
 
