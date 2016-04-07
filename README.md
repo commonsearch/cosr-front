@@ -38,6 +38,7 @@ make docker_test
 You can also launch our automated UI tests:
 
 ```
+make start_services_devindex
 make docker_uitest
 ```
 
