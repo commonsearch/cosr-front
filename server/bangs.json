@@ -1,40 +1,75 @@
 {
 
   "a": {
-  	"any": "https://www.amazon.com/s/?field-keywords={{{s}}}",
-  	"fr": "https://www.amazon.fr/s/?field-keywords={{{s}}}"
+    "any": "https://www.amazon.com/s/?field-keywords={{{s}}}",
+    "fr": "https://www.amazon.fr/s/?field-keywords={{{s}}}"
+  },
+
+
+  "archwiki": {
+    "any": "https://wiki.archlinux.org/index.php?title=Special:Search&search={{{s}}}"
+  },
+  "aur": {
+    "any": "https://aur.archlinux.org/packages/?K={{{s}}}"
   },
 
 
   "g": {
-  	"any": "https://encrypted.google.com/search?hl={{{lang}}}&q={{{s}}}"
+    "any": "https://encrypted.google.com/search?hl={{{lang}}}&q={{{s}}}"
   },
   "gi": {
-  	"any": "https://encrypted.google.com/search?hl={{{lang}}}&tbm=isch&q={{{s}}}&tbs=imgo:1"
+    "any": "https://encrypted.google.com/search?hl={{{lang}}}&tbm=isch&q={{{s}}}&tbs=imgo:1"
   },
   "gm": {
-  	"any": "https://encrypted.google.com/maps?hl={{{lang}}}&q={{{s}}}"
+    "any": "https://encrypted.google.com/maps?hl={{{lang}}}&q={{{s}}}"
   },
 
 
   "b": {
-  	"any": "https://www.bing.com/search?q={{{s}}}&cc={{{lang}}}"
+    "any": "https://www.bing.com/search?q={{{s}}}&cc={{{lang}}}"
   },
   "bi": {
-  	"any": "https://www.bing.com/images/search?q={{{s}}}&cc={{{lang}}}"
+    "any": "https://www.bing.com/images/search?q={{{s}}}&cc={{{lang}}}"
   },
   "bm": {
-  	"any":"https://www.bing.com/mapspreview/?q={{{s}}}&cc={{{lang}}}"
+    "any":"https://www.bing.com/mapspreview/?q={{{s}}}&cc={{{lang}}}"
+  },
+  
+
+  "imdb": {
+    "any": "http://www.imdb.com/find?q={{{s}}}&s=all"
   },
 
 
+  "py": {
+    "any": "https://docs.python.org/3/search.html?q={{{s}}}"
+  },
+  "python": {
+    "any": "https://docs.python.org/3/search.html?q={{{s}}}"
+  },
+  "pypi": {
+    "any": "https://pypi.python.org/pypi?:action=search&term={{{s}}}&submit=search"
+  },
+  "pip": {
+    "any": "https://pypi.python.org/pypi?:action=search&term={{{s}}}&submit=search"
+  },
+
+
+  "so": {
+    "any": "https://stackoverflow.com/search?q={{{s}}}"
+  },
+  "stackoverflow": {
+    "any": "https://stackoverflow.com/search?q={{{s}}}"
+  },
+
+  
   "ya": {
-  	"any":"https://yandex.ru/search/?text={{{s}}}&lang={{{lang}}}"
+    "any":"https://yandex.ru/search/?text={{{s}}}&lang={{{lang}}}"
   },
 
 
   "w": {
-  	"any": "https://{{{lang}}}.wikipedia.org/wiki/Special:Search?search={{{s}}}"
+    "any": "https://{{{lang}}}.wikipedia.org/wiki/Special:Search?search={{{s}}}"
   }
 
 }
