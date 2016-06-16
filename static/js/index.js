@@ -90,8 +90,8 @@
 		 }
 	 }
 
-	 // Traverse Search link indirection based on Up and down arrow key press event
-	traverseElementOnKeyDown(event);
+  	 // Traverse Search link indirection based on Up and down arrow key press event
+  	traverseElementOnKeyDown(event);
 
     return (
       (!event.metaKey && !event.altKey && !event.ctrlKey) &&
@@ -104,32 +104,37 @@
     // Function which is used to traverse search links based on Up and down arrow key
   var traverseElementOnKeyDown = function(event) {
 
-	// Find active Element tabIndex
-	var tabIndexElement = document.activeElement.tabIndex;
+  	// Find active Element tabIndex
+  	var tabIndexElement = document.activeElement.tabIndex;
 
-	// tabIndex for element is 0 then send focus back to first search link
-	if(tabIndexElement == 30){
-		document.querySelector('[tabIndex="6"]').focus();
-		event.preventDefault();
-		return;
-	}
+  	// tabIndex for element is 0 then send focus back to first search link
+  	if (tabIndexElement == 30) {
+  		document.querySelector('[tabIndex="6"]').focus();
+  		event.preventDefault();
+  		return;
+  	}
 
-	if(tabIndexElement < 6){
-		return;
-	}
-	// Based on Up and Down Key press move focus from next or previous search links
-	if(event.keyCode == 38)	{ // up key press
-		var queryString = '[tabindex="'+(--tabIndexElement)+'"]';
-		var currentElement = document.querySelector(queryString);
-		currentElement.focus();
-		event.preventDefault();
-	}
-	if(event.keyCode == 40)	{ // down key press
-		var queryString = '[tabindex="'+(++tabIndexElement)+'"]';
-		var currentElement = document.querySelector(queryString);
-		currentElement.focus();
-		event.preventDefault();
-	}
+  	if (tabIndexElement < 6) {
+  		return;
+  	}
+
+  	// Based on Up and Down Key press move focus from next or previous search links
+    // TODO: instead of having harcoded tabindexes for each element, could we just disable
+    // the ones we don't want to use and use default browser behaviour?
+
+  	if (event.keyCode == 38) { // up key press
+  		var queryString = '[tabindex="' + (tabIndexElement - 1) + '"]';
+  		var currentElement = document.querySelector(queryString);
+  		currentElement.focus();
+  		event.preventDefault();
+  	}
+
+  	if (event.keyCode == 40)	{ // down key press
+  		var queryString = '[tabindex="' + (tabIndexElement + 1) + '"]';
+  		var currentElement = document.querySelector(queryString);
+  		currentElement.focus();
+  		event.preventDefault();
+  	}
 
   };
 
@@ -261,8 +266,8 @@
   // or from the Go template!
   var renderHits = function(search, result) {
 
-	// TabIndex starts from 6 we already got 5 elements on html page
-	var tabIndexCount = 5;
+  	// TabIndex starts from 6 we already got 5 elements on html page
+  	var tabIndexCount = 5;
 
     var html = "";
 
