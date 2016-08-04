@@ -1,6 +1,6 @@
 # cosr-front
 
-[![Build Status](https://travis-ci.org/commonsearch/cosr-front.svg?branch=master)](https://travis-ci.org/commonsearch/cosr-front) [![Apache License 2.0](https://img.shields.io/github/license/commonsearch/cosr-front.svg)](LICENSE)
+[![Build Status](https://travis-ci.org/commonsearch/cosr-front.svg?branch=master)](https://travis-ci.org/commonsearch/cosr-front) [![Go Report Card](https://goreportcard.com/badge/github.com/commonsearch/cosr-front)](https://goreportcard.com/report/github.com/commonsearch/cosr-front) [![Apache License 2.0](https://img.shields.io/github/license/commonsearch/cosr-front.svg)](LICENSE)
 
 This repository contains the frontend for [Common Search](https://about.commonsearch.org/). A demo is currently hosted on [uidemo.commonsearch.org](https://uidemo.commonsearch.org/)
 

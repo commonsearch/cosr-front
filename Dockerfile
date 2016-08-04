@@ -21,7 +21,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-reco
 #
 # Install Golang
 #
-RUN curl 'https://storage.googleapis.com/golang/go1.6.linux-amd64.tar.gz' | tar -C /usr/local -xzf -
+RUN curl 'https://storage.googleapis.com/golang/go1.7rc5.linux-amd64.tar.gz' | tar -C /usr/local -xzf -
 
 ENV GOPATH /go
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
@@ -36,13 +36,14 @@ RUN gem install sass
 #
 # Install Node
 #
-ENV NODE_VERSION 5.9.0
+ENV NODE_VERSION 6.3.1
 
 RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" \
   && tar -xJf "node-v$NODE_VERSION-linux-x64.tar.xz" -C /usr/local --strip-components=1 \
   && rm "node-v$NODE_VERSION-linux-x64.tar.xz"
 
-
+RUN npm install jshint@2.9.2
+RUN npm install eslint@3.2.2
 
 #
 # Install PhantomJS
@@ -57,7 +58,7 @@ RUN curl -sSL https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-$PHANTOM
 # Sauce Connect
 # https://wiki.saucelabs.com/display/DOCS/Setting+Up+Sauce+Connect
 #
-RUN curl "https://saucelabs.com/downloads/sc-4.3.14-linux.tar.gz" | tar zxC /usr/local/ --strip-components=1
+RUN curl "https://saucelabs.com/downloads/sc-4.3.16-linux.tar.gz" | tar zxC /usr/local/ --strip-components=1
 
 
 

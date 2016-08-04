@@ -45,8 +45,8 @@ func ElasticsearchConnectServer(url string) *elastic.Client {
 	// We must do this to allow having an unconnected client instance,
 	// and throw proper errors instead of panicking at startup.
 	client.Stop()
-	err = elastic.SetHealthcheck(true)(client)
-	err = elastic.SetSniff(true)(client)
+	_ = elastic.SetHealthcheck(true)(client)
+	_ = elastic.SetSniff(true)(client)
 	client.Start()
 
 	return client

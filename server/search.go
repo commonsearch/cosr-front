@@ -12,7 +12,7 @@ import (
 )
 
 // Remove most of the useless spaces in HTML.
-var termSplitRegexp = regexp.MustCompile("\\s+")
+var termSplitRegexp = regexp.MustCompile(`\s+`)
 
 // SearchResultTiming is used to measure timings at various steps in the request, in microseconds.
 type SearchResultTiming struct {
@@ -306,13 +306,13 @@ func (req SearchRequest) GenerateTestData() *SearchResult {
 
 	return &SearchResult{
 		Hits: []Hit{
-			Hit{
+			{
 				ID:      "1",
 				Title:   "Page 1",
 				URL:     "http://www.example.com/page/1",
 				Summary: "summary 1",
 			},
-			Hit{
+			{
 				ID:      "2",
 				Title:   "Page 2",
 				URL:     "http://www.example.com/page/2",

@@ -122,16 +122,16 @@
     // TODO: instead of having harcoded tabindexes for each element, could we just disable
     // the ones we don't want to use and use default browser behaviour?
 
+    var queryString, currentElement;
+
   	if (event.keyCode == 38) { // up key press
-  		var queryString = '[tabindex="' + (tabIndexElement - 1) + '"]';
-  		var currentElement = document.querySelector(queryString);
+  		queryString = '[tabindex="' + (tabIndexElement - 1) + '"]';
+  		currentElement = document.querySelector(queryString);
   		currentElement.focus();
   		event.preventDefault();
-  	}
-
-  	if (event.keyCode == 40)	{ // down key press
-  		var queryString = '[tabindex="' + (tabIndexElement + 1) + '"]';
-  		var currentElement = document.querySelector(queryString);
+  	} else if (event.keyCode == 40)	{ // down key press
+  		queryString = '[tabindex="' + (tabIndexElement + 1) + '"]';
+  		currentElement = document.querySelector(queryString);
   		currentElement.focus();
   		event.preventDefault();
   	}

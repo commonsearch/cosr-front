@@ -12,13 +12,13 @@ import (
 )
 
 // Remove most of the useless spaces in HTML.
-var spacesRegexp = regexp.MustCompile("(>|\\})\\s+(<|\\{)")
+var spacesRegexp = regexp.MustCompile(`(>|\})\s+(<|\{)`)
 
 // Replace a CSS tag with inline content.
-var cssRegexp = regexp.MustCompile("<!-- CSS([\\s\\S]+?)ENDCSS -->")
+var cssRegexp = regexp.MustCompile(`<!-- CSS([\s\S]+?)ENDCSS -->`)
 
 // Remove protocol and trailing slash in homepages.
-var simplifyURLRegexp = regexp.MustCompile("(.*?://)(([^/]+)(/.+)?).*")
+var simplifyURLRegexp = regexp.MustCompile(`(.*?://)(([^/]+)(/.+)?).*`)
 
 // Templates is a map of all the parsed templates.
 var Templates = make(map[string]*template.Template)

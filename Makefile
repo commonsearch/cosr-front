@@ -42,8 +42,7 @@ stop_services:
 #
 
 # Lint everything
-# Closure compiler performs a lint pass. Do we still need jshint or eslint?
-lint: minify_js golint
+lint: jslint golint
 
 # Lint and test everything
 test: lint gotest
@@ -52,16 +51,21 @@ test: lint gotest
 docker_test:
 	docker run -e DOCKER_HOST --rm -v "$(PWD):/go/src/github.com/commonsearch/cosr-front:rw" -w /go/src/github.com/commonsearch/cosr-front -i -t commonsearch/local-front make test
 
-# Perform all available linting checks on the Go code
+# Perform static checks on the Go code
+# See new ideas at https://github.com/alecthomas/gometalinter
 golint:
-	go fmt ./server
+	go fmt -n ./server/ | sed -e "s/gofmt -l/gofmt -s -l/g" | sh
 	golint ./server
 	test -z "$$(golint ./server)"
-	go tool vet -all ./server
+	go tool vet -all -shadow ./server
 	aligncheck ./server
 	structcheck ./server
 	varcheck ./server
 	errcheck -ignoretests ./server
+	ineffassign ./server/
+	unconvert ./server/
+	gosimple ./server/
+	staticcheck ./server/
 
 # Dependencies for linting Go code
 golint_deps:
@@ -70,6 +74,10 @@ golint_deps:
 	go get github.com/opennota/check/cmd/aligncheck
 	go get github.com/opennota/check/cmd/structcheck
 	go get github.com/opennota/check/cmd/varcheck
+	go get github.com/gordonklaus/ineffassign
+	go get github.com/mdempsky/unconvert
+	go get honnef.co/go/simple/cmd/gosimple
+	go get honnef.co/go/staticcheck/cmd/staticcheck
 
 # Run Go tests
 gotest:
@@ -78,6 +86,12 @@ gotest:
 # Run Go benchmarks
 gobench:
 	COSR_PATHFRONT="${PWD}" go test ./server -bench=. -benchtime=5s
+
+# Static linting on the JS code
+jslint:
+	node_modules/jshint/bin/jshint static/js/*.js
+	node_modules/eslint/bin/eslint.js static/js/index.js
+	java -jar tools/closure-compiler/compiler.jar --warning_level VERBOSE --summary_detail_level 3 --compilation_level ADVANCED --use_types_for_optimization --language_in ECMASCRIPT5_STRICT --js static/js/index.js > /dev/null
 
 # Run local UI tests with PhantomJS
 uitest:
@@ -110,8 +124,9 @@ build_static: minify
 # Minify everything
 minify: minify_js minify_css
 
-# Minify the JavaScript code
+# Minify the JavaScript code (will also do some more linting)
 minify_js:
+
 	mkdir -p build/static/js/
 
 	# v20150315 is the last version that doesn't crash. TODO, report it!
