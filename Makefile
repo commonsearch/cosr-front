@@ -89,8 +89,8 @@ gobench:
 
 # Static linting on the JS code
 jslint:
-	node_modules/jshint/bin/jshint static/js/*.js
-	node_modules/eslint/bin/eslint.js static/js/index.js
+	jshint static/js/*.js
+	eslint static/js/index.js
 	java -jar tools/closure-compiler/compiler.jar --warning_level VERBOSE --summary_detail_level 3 --compilation_level ADVANCED --use_types_for_optimization --language_in ECMASCRIPT5_STRICT --js static/js/index.js > /dev/null
 
 # Run local UI tests with PhantomJS

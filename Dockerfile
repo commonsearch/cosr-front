@@ -42,8 +42,7 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
   && tar -xJf "node-v$NODE_VERSION-linux-x64.tar.xz" -C /usr/local --strip-components=1 \
   && rm "node-v$NODE_VERSION-linux-x64.tar.xz"
 
-RUN npm install jshint@2.9.2
-RUN npm install eslint@3.2.2
+RUN npm install -g eslint@3.2.2 jshint@2.9.2
 
 #
 # Install PhantomJS

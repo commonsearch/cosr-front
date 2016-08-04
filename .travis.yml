@@ -4,8 +4,8 @@ services:
   - docker
 
 install:
-  - ./tools/git-set-file-times
-  - make docker_pull
+#  - ./tools/git-set-file-times
+#  - make docker_pull
   - make docker_build
 
 script:
