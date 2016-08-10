@@ -151,7 +151,7 @@ minify_css:
 # Build the Go server code
 gobuild:
 	mkdir -p build
-	go build -o build/cosr-front.bin ./server
+	go build -i -o build/cosr-front.bin ./server
 
 # Build local Docker images
 docker_build:
