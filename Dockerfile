@@ -65,11 +65,22 @@ RUN curl "https://saucelabs.com/downloads/sc-4.3.16-linux.tar.gz" | tar zxC /usr
 # Install dependencies
 #
 
-# Go
-ADD Makefile /Makefile
-RUN go get github.com/tools/godep
-RUN make golint_deps
+# Go linting
+RUN go get github.com/tools/godep && \
+    go get -u github.com/kisielk/errcheck && \
+    go get -u github.com/golang/lint/golint && \
+    go get github.com/opennota/check/cmd/aligncheck && \
+    go get github.com/opennota/check/cmd/structcheck && \
+    go get github.com/opennota/check/cmd/varcheck && \
+    go get github.com/gordonklaus/ineffassign && \
+    go get github.com/mdempsky/unconvert && \
+    go get honnef.co/go/simple/cmd/gosimple && \
+    go get honnef.co/go/staticcheck/cmd/staticcheck
 
 # UI tests
 ADD tests/package.json /usr/local/lib/package.json
 RUN cd /usr/local/lib/ && SAUCE_CONNECT_DOWNLOAD_ON_INSTALL=true npm install --no-optional
+
+
+# Save the hash at the time the image was built
+ADD .dockerhash /cosr-front-dockerhash

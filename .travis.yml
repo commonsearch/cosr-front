@@ -3,10 +3,40 @@ sudo: required
 services:
   - docker
 
+cache:
+  timeout: 1000
+  directories:
+    - $HOME/.cache
+
+before_cache:
+  - du -ch $HOME/.cache
+
 install:
-#  - ./tools/git-set-file-times
-#  - make docker_pull
+ - ./tools/git-set-file-times
+
+  # Load Docker cache if any
+  # Please note: There is a different cache for each build matrix worker, depending on the env.
+  # Hopefully this can be removed soon. See: https://github.com/docker/docker/issues/20316
+  - mkdir -p $HOME/.cache/docker/
+  - if [ -f $HOME/.cache/docker/image.tgz ]; then
+    echo "Docker cache found, loading..." &&
+    sh -c "gunzip -c $HOME/.cache/docker/image.tgz | docker load" &&
+    docker history commonsearch/local-front;
+    fi
+  - export CACHED_DOCKER_HASH=`docker history -q commonsearch/local-front | head -n1`
+
+  # Rebuild the image, possibly using the cache
   - make docker_build
+  - docker history commonsearch/local-front
+  - export NEW_DOCKER_HASH=`docker history -q commonsearch/local-front | head -n1`
+  - 'echo "Cached Docker hash: $CACHED_DOCKER_HASH vs. New Docker hash: $NEW_DOCKER_HASH"'
+
+  # If the cache hash changed, save the docker image in the cache
+  - if [ "$NEW_DOCKER_HASH" != "$CACHED_DOCKER_HASH" ]; then
+    echo "Updating cache" &&
+    rm -rf $HOME/.cache/docker/* &&
+    sh -c "docker save commonsearch/local-front $(docker history -q commonsearch/local-front | tail -n +2 | grep -v \<missing\> | tr '\n' ' ') | gzip > $HOME/.cache/docker/image.tgz";
+    fi
 
 script:
   - make docker_test

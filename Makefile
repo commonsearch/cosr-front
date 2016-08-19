@@ -16,12 +16,16 @@ runserver: gobuild
 godep_save:
 	GO15VENDOREXPERIMENT=1 godep save -v ./server
 
+# Checks if the container is out of date
+docker_check:
+	@bash -c 'docker run -v "$(PWD):/go/src/github.com/commonsearch/cosr-front:ro" -t commonsearch/local-front sh -c "if diff -q /.cosr-front-dockerhash /go/src/github.com/commonsearch/cosr-front/.dockerhash > /dev/null; then echo \"Docker image is up to date\"; else echo \"\nWARNING: Your Docker image seems to be out of date! Please exit and do \\\"make docker_build\\\" again to avoid any issues.\n\"; fi"'
+
 # Logins into the container
-docker_shell:
+docker_shell: docker_check
 	docker run -e DOCKER_HOST --rm -v "$(PWD):/go/src/github.com/commonsearch/cosr-front:rw" -w /go/src/github.com/commonsearch/cosr-front -p 9700:9700 -i -t commonsearch/local-front bash
 
 # Run server for local development in a container
-docker_devserver:
+docker_devserver: docker_check
 	docker run -e DOCKER_HOST --rm -v "$(PWD):/go/src/github.com/commonsearch/cosr-front:rw" -w /go/src/github.com/commonsearch/cosr-front -p 9700:9700 -i -t commonsearch/local-front make devserver
 
 # Starts the local services needed by cosr-front
@@ -52,6 +56,7 @@ docker_test:
 	docker run -e DOCKER_HOST --rm -v "$(PWD):/go/src/github.com/commonsearch/cosr-front:rw" -w /go/src/github.com/commonsearch/cosr-front -i -t commonsearch/local-front make test
 
 # Perform static checks on the Go code
+# These dependencies are installed in the Dockerfile
 # See new ideas at https://github.com/alecthomas/gometalinter
 golint:
 	go fmt -n ./server/ | sed -e "s/gofmt -l/gofmt -s -l/g" | sh
@@ -66,18 +71,6 @@ golint:
 	unconvert ./server/
 	gosimple ./server/
 	staticcheck ./server/
-
-# Dependencies for linting Go code
-golint_deps:
-	go get -u github.com/kisielk/errcheck
-	go get -u github.com/golang/lint/golint
-	go get github.com/opennota/check/cmd/aligncheck
-	go get github.com/opennota/check/cmd/structcheck
-	go get github.com/opennota/check/cmd/varcheck
-	go get github.com/gordonklaus/ineffassign
-	go get github.com/mdempsky/unconvert
-	go get honnef.co/go/simple/cmd/gosimple
-	go get honnef.co/go/staticcheck/cmd/staticcheck
 
 # Run Go tests
 gotest:
@@ -155,7 +148,12 @@ gobuild:
 
 # Build local Docker images
 docker_build:
+	make docker_hash > .dockerhash
 	docker build -t commonsearch/local-front .
+
+# Build a unique hash to indicate that a docker_build may be necessary again
+docker_hash:
+	@sh -c 'cat Dockerfile tests/package.json | grep -vE "^\s*\#" | grep -vE "^\s*$$" | openssl md5'
 
 # Pull Docker images from the registry
 docker_pull:
