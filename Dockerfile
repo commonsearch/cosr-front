@@ -21,7 +21,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-reco
 #
 # Install Golang
 #
-RUN curl 'https://storage.googleapis.com/golang/go1.7rc5.linux-amd64.tar.gz' | tar -C /usr/local -xzf -
+RUN curl 'https://storage.googleapis.com/golang/go1.7.linux-amd64.tar.gz' | tar -C /usr/local -xzf -
 
 ENV GOPATH /go
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
