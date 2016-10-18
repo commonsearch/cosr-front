@@ -44,6 +44,7 @@ type SearchResult struct {
 	HasMore    bool               `json:"m,omitempty"`
 	Timing     SearchResultTiming `json:"t,omitempty"`
 	TotalCount int64              `json:"c,omitempty"`
+	Extra      string             `json:"e,omitempty"`
 }
 
 // SearchRequest entirely defines a search request.

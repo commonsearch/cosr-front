@@ -46,14 +46,28 @@
   padding:10px;
 }
 
-/* Result count */
-#c {
-  color: #999;
+.info {
   position:absolute;
   top:-17px;
   right:11px;
-  text-align:right;
   font-size:11px;
+  left: 106px;
+}
+
+/* Result count */
+#c {
+  color: #999;
+  float: right;
+}
+
+/* Truncate query notice */
+#e {
+  color: #999;
+  left: 11px;
+  text-align:left;
+  font-size:11px;
+  padding-left: 10px;
+  float: left;
 }
 
 /* Pagination */

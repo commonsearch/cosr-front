@@ -63,6 +63,20 @@ func sendResultPage(w http.ResponseWriter, r *http.Request, page *resultPage) {
 
 }
 
+// TruncateQuery allows only Config.MaxQueryTerms words to enter the actual search
+func TruncateQuery(q string) (string, string) {
+	words := strings.Fields(q)
+	allowedLength := Config.MaxQueryTerms
+
+	var extra string // the starting word that are truncated
+	if len(words) > allowedLength {
+		q = strings.Join(words[:allowedLength], " ")
+		extra = words[allowedLength]
+	}
+
+	return q, extra
+}
+
 // SearchHandler handles HTTP queries to home or result pages (/ or /?q=*).
 func SearchHandler(w http.ResponseWriter, r *http.Request) {
 
@@ -73,6 +87,11 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 		page := resultPage{Type: "home", Search: *search}
 		sendResultPage(w, r, &page)
 		return
+	}
+
+	truncatedQuery, extra := TruncateQuery(search.Query)
+	if extra != "" {
+		search.Query = truncatedQuery
 	}
 
 	// Perform the search itself
@@ -88,6 +107,7 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	result.Extra = extra
 	page := resultPage{Search: *search, Result: *result}
 	sendResultPage(w, r, &page)
 }
@@ -98,9 +118,15 @@ func APISearchHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	search := getSearchRequest(r)
+	truncatedQuery, extra := TruncateQuery(search.Query)
+
+	if extra != "" {
+		search.Query = truncatedQuery
+	}
 
 	// Perform the search itself
 	result, err := search.PerformSearchWithTiming()
+	result.Extra = extra
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
