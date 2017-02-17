@@ -21,7 +21,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-reco
 #
 # Install Golang
 #
-RUN curl 'https://storage.googleapis.com/golang/go1.7rc5.linux-amd64.tar.gz' | tar -C /usr/local -xzf -
+RUN curl 'https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz' | tar -C /usr/local -xzf -
 
 ENV GOPATH /go
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
@@ -80,7 +80,6 @@ RUN go get github.com/tools/godep && \
 # UI tests
 ADD tests/package.json /usr/local/lib/package.json
 RUN cd /usr/local/lib/ && SAUCE_CONNECT_DOWNLOAD_ON_INSTALL=true npm install --no-optional
-
 
 # Save the hash at the time the image was built
 ADD .dockerhash /cosr-front-dockerhash

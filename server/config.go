@@ -42,6 +42,9 @@ type ConfigSpec struct {
 
 	// ResultPageSize controls the number of results on each page.
 	ResultPageSize int `default:"25"`
+
+	// Maximum allowed number of words for a query
+	MaxQueryTerms int `default:"10"`
 }
 
 // Config contains the current configuration values.

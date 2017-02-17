@@ -271,9 +271,15 @@
 
     var html = "";
 
+    html += "<div class='info'>";
     if (result["c"]) {
       html += "<div id='c'>About " + result["c"] + " results</div>";
     }
+
+    if (result["e"]) {
+      html += "<div id='e'>\"" + result["e"] + "\" (and subsequent words) was ignored because we limit queries to 10 words.</div>";
+    }
+    html += "</div>";
 
     for (var i = 0; i < (result["h"] || []).length; i++) {
       var hit = result["h"][i];

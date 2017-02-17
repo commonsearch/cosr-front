@@ -79,9 +79,11 @@
     {{end}}
 
     <div id="hits">
-      {{if .Result.TotalCount}}
-        <div id="c">About {{.Result.TotalCount}} results</div>
-      {{end}}
+      <div class="info">
+        {{if .Result.TotalCount}}
+          <div id="c">About {{.Result.TotalCount}} results</div>
+        {{end}}
+      </div>
       {{range $index, $element := .Result.Hits}}
         <div class="r">
           <h3><a href="{{ .URL | html }}" tabIndex="{{add $index 6}}">{{ .Title }}</a></h3>

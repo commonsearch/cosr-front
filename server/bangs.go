@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"encoding/json"
 	"io/ioutil"
 	"log"
@@ -18,8 +17,6 @@ func LoadBangs() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	cnt = bytes.Replace(cnt, []byte("\n"), []byte(""), 0)
 
 	if err := json.Unmarshal(cnt, &bangs); err != nil {
 		log.Fatal(err)
