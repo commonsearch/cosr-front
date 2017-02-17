@@ -12,7 +12,7 @@ before_cache:
   - du -ch $HOME/.cache
 
 install:
- - ./tools/git-set-file-times
+  - ./tools/git-set-file-times
 
   # Load Docker cache if any
   # Please note: There is a different cache for each build matrix worker, depending on the env.
